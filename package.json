@@ -4,7 +4,7 @@
   "description": "backend",
   "main": "index.js",
   "scripts": {
-    "test": "npm start"
+    "start": "nodemon index.js"
   },
   "keywords": [
     "RTBE"
@@ -12,6 +12,7 @@
   "author": "meryamun",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.4.1",
     "nodemon": "^2.0.18"
