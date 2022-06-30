@@ -1,8 +1,16 @@
 const express = require('express');
 const connectDb = require('./db/dbConfig')
 const dotenv = require('dotenv')
+const userRoute = require('./routes/userRoutes')
+
+
+
 const app = express();
 dotenv.config();
+
+
+
+app.use('/api', userRoute)
 
 app.get('/', (req, res) => {
     res.send('This is the home page, welcome!')
