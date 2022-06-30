@@ -1,4 +1,5 @@
 const express = require('express');
+//const bodyParser = require('body-parser')
 const connectDb = require('./db/dbConfig')
 const cors = require('cors')
 const dotenv = require('dotenv')
@@ -8,6 +9,10 @@ const userRoute = require('./routes/userRoutes')
 
 const app = express();
 dotenv.config();
+// app.use(bodyParser.json({ limit: "50mb", extended:true }));
+// app.use(bodyParser.urlencoded({ limit: "50mb", extended:true, parameterLimit:50000 }))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
