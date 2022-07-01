@@ -3,7 +3,7 @@ const User = require('../model/userModel')
 
 
 const createNewUser = async (req, res) => {
-const { username, gender, country, device } = req.body
+const { username, gender, country, device, usageTime } = req.body
     let existingUser =  await User.findOne({username})
 
     if(existingUser){
@@ -14,7 +14,8 @@ const { username, gender, country, device } = req.body
             username,
             gender,
             country,
-            device
+            device,
+            usageTime
         })
     res.status(402).json({newUser})
 }

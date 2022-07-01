@@ -14,6 +14,9 @@ const userSchema = new Schema({
     device:{
         type:String, required:true
     },
+    usageTime:{
+  type:Number, 
+    },
     createdOn:{
         type: Date,
         default: Date.now
