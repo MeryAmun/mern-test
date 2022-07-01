@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {arrowUp, arrowDown} from '../assets/index'
+import paginate from './Pagination';
+import { useFetch } from './useFetch';
+
 
 const Table = () => {
 const [users, setUsers] = useState([]);
+const [page, setPage] = useState(0);
+const [loading, setLoading] = useState(true)
 
 
 
@@ -12,15 +17,40 @@ fetch("http://localhost:3500/api/users")
  .then((response) => 
 response.json()
 )
-  .then((data) => (
-    setUsers(data.allUsers)
-   //console.log(data.allUsers)
+  .then((data) => {
+   const newData =  data.allUsers;
+   return  setLoading(true),setUsers(paginate(newData)), setLoading(false)
+  
     
+  }
   )
-  )
- }, [])
+ },  [loading, page])
+  
  
 
+
+ const nextPage = () => {
+  setPage((oldPage) => {
+    let nextPage = oldPage + 1
+    if (nextPage > users.length - 1) {
+      nextPage = 0
+    }
+    return nextPage
+  })
+}
+const prevPage = () => {
+  setPage((oldPage) => {
+    let prevPage = oldPage - 1
+    if (prevPage < 0) {
+      prevPage = users.length - 1
+    }
+    return prevPage
+  })
+}
+
+const handlePage = (index) => {
+  setPage(index)
+}
 
 
 
@@ -77,29 +107,51 @@ response.json()
                         </div>
                         <div className="collectionss__contents">
                       {
-                        //console.log(users)
-                      users.map((user) => {
-                        const { username,gender,country,device  } = user
-                        return  <div class="collection__content-wrapper bg-color-secondary">
-                        <div class="collection__image">
-                   <p class="font-weight-medium">{username}</p>
+                        //console.log(users[page])
+                        users.length < 1 ?   <div className="collection__price">
+                        <p>No current Users</p>
+                        </div>  : 
+                      users[page].map((user, index) => {
+                        const { username,gender,country,device , usageTime } = user
+                        return  <div className="collection__content-wrapper bg-color-secondary" key={index}>
+                        <div className="collection__image">
+                   <p className="font-weight-medium">{username}</p>
                       </div>
-                      <div class="collection__price">
+                      <div className="collection__price">
                       <p>{gender}</p>
                       </div>
-                  <div class="collection__price">
+                  <div className="collection__price">
                   <p>{country}</p>
                   </div>
                   <p>{device}</p>
-                  <p>usage time</p>
+                  <p>{usageTime}     hrs</p>
                   </div>
                      })
                       }
                         </div>
                     </div>
                 </div>
-                
-                <div className="btn-container"></div>
+                {!loading && (
+          <div className='btn-container'>
+            <button className='prev-btn' onClick={prevPage}>
+              prev
+            </button>
+            {users.map((item, index) => {
+              return (
+                <button
+                  key={index}
+                  className={`page-btn ${index === page ? 'active-btn' : null}`}
+                  onClick={() => handlePage(index)}
+                >
+                  {index + 1}
+                </button>
+              )
+            })}
+            <button className='next-btn' onClick={nextPage}>
+              next
+            </button>
+          </div>
+        )}
             </div>
         </section>
     </main>
