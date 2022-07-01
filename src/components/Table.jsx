@@ -37,6 +37,7 @@ response.json()
     }
     return nextPage
   })
+ 
 }
 const prevPage = () => {
   setPage((oldPage) => {
@@ -46,6 +47,7 @@ const prevPage = () => {
     }
     return prevPage
   })
+
 }
 
 const handlePage = (index) => {
@@ -53,13 +55,63 @@ const handlePage = (index) => {
 }
 
 
+const sortElement = document.getElementById('select');
+var usageTime = 0;
+const toggleUsageTimeArrow = document.querySelector('.users__content-order2');
+
+//console.log(users)
+
+const toggle = () => {
+ (function(){
+    const elements = toggleUsageTimeArrow.children[0].children
+    console.log(elements)
+     elements[0].classList.add('hidden-users');
+     elements[1].classList.add('hidden-users1')
+    if(usageTime < 2 ){
+     usageTime = usageTime + 1;
+    }else{
+      usageTime = 0
+    }
+    if(usageTime === 1 ){
+     elements[0].classList.remove('hidden-users');
+    }else
+    if(usageTime === 2 ){
+     elements[1].classList.remove('hidden-users1');
+     
+     
+   }
+     displayUsers(users[page])
+     
+  })();
+}
+
+
+ const displayUsers =  (users) => {
+  const selectedSort = sortElement.value;
+
+//console.log(users)
+  //usageTime sorts
+  if(usageTime === 1){
+    users = users.sort(function (x, y) {
+      console.log(x.usageTime)
+      return x.usageTime - y.usageTime;
+    });
+  }
+  if(usageTime === 2){
+    users = users.sort(function (x, y) {
+      return y.usageTime - x.usageTime;
+    });
+  }
+}
+
+ 
 
   return (
     <main>
-        <section className="collection">
+        <section className="users">
             <div className="container">
                 <div className="section-header">
-                    <div className="collection__heading">
+                    <div className="users__heading">
                         <h1>Trending Users <span>🔥</span></h1>
                         <p>Users data for real time dashboard showcasing Users segmentation (by country, gender, devices), top 15 users by usage time.
                         </p>
@@ -73,58 +125,59 @@ const handlePage = (index) => {
                     </div>
                 </div>
                 <div className="section-content">
-                    <div className="collection__content">
-                        <div className="collection__content-wrapper bg-color-secondary collection__content-wrapper--height">
+                    <div className="users__content">
+                        <div className="users__content-wrapper bg-color-secondary users__content-wrapper--height">
                             <p className="font-medium font-weight-bold">Username</p>
-                            <div className="collection__content-order  font-medium font-weight-bold">
+                            <div className="users__content-order  font-medium font-weight-bold">
                                Gender
-                                <div className="collection__content-order-image">
+                                <div className="users__content-order-image">
                                     <img src={arrowUp} alt=""  className='arrow-up' />
                                     <img src={arrowDown} alt="" className='arrow-down' />
                                 </div>
                             </div>
-                            <div className="collection__content-order  font-medium font-weight-bold">
+                            <div className="users__content-order  font-medium font-weight-bold">
                                Country
-                                <div className="collection__content-order-image">
+                                <div className="users__content-order-image">
                                     <img src={arrowUp} alt=""  className='arrow-up' srcSet=""/>
                                     <img src={arrowDown} alt="" className='arrow-down'  srcSet=""/>
                                 </div>
                             </div>
-                            <div className="collection__content-order font-medium font-weight-bold collection__content-order2">
+                            <div className="users__content-order font-medium font-weight-bold users__content-order">
                               Divice
-                                <div className="collection__content-order-image">
-                                <img src={arrowUp} alt="" className='arrow-up-sales'  srcSet=""/>
-                            <img src={arrowDown} alt="" className='arrow-down-sales' srcSet=""/>
+                                <div className="users__content-order-image">
+                                <img src={arrowUp} alt="" className='arrow-up-devices'  srcSet=""/>
+                            <img src={arrowDown} alt="" className='arrow-down-devices' srcSet=""/>
                                 </div>
                             </div>
-                            <div className="collection__content-order font-medium font-weight-bold collection__content-order2">
+                            <div className="users__content-order font-medium font-weight-bold users__content-order2" onClick={toggle}>
                                Usage Time in hours
-                                <div className="collection__content-order-image">
-                                <img src={arrowUp} alt="" className='arrow-up-sales'  srcSet=""/>
-                            <img src={arrowDown} alt="" className='arrow-down-sales' srcSet=""/>
+                                <div className="users__content-order-image">
+                                <img src={arrowUp} alt="" className='arrow-up-time'  srcSet=""/>
+                            <img src={arrowDown} alt="" className='arrow-down-time' srcSet=""/>
                                 </div>
                             </div>
                         </div>
-                        <div className="collectionss__contents">
+                        <div className="usersss__contents">
                       {
                         //console.log(users[page])
-                        users.length < 1 ?   <div className="collection__price">
-                        <p>No current Users</p>
+                        users.length < 1 ?   <div className="users__price">
+                          <br />
+                        <p>Either you have no internet  connnection, Or there are no current Users</p>
                         </div>  : 
                       users[page].map((user, index) => {
-                        const { username,gender,country,device , usageTime } = user
-                        return  <div className="collection__content-wrapper bg-color-secondary" key={index}>
-                        <div className="collection__image">
+                        const { username, gender,country,device , usageTime } = user
+                        return  <div className="users__content-wrapper bg-color-secondary" key={index}>
+                        <div className="users__image">
                    <p className="font-weight-medium">{username}</p>
                       </div>
-                      <div className="collection__price">
+                      <div className="users__price">
                       <p>{gender}</p>
                       </div>
-                  <div className="collection__price">
+                  <div className="users__price">
                   <p>{country}</p>
                   </div>
                   <p>{device}</p>
-                  <p>{usageTime}     hrs</p>
+                  <p>{usageTime}hrs</p>
                   </div>
                      })
                       }
