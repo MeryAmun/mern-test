@@ -2,11 +2,11 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <header class="header">
+    <header className="header">
     <nav>
-        <div class="nav">
-            <div class="container">
-                <div class="nav__image">
+        <div className="nav">
+            <div className="container">
+                <div className="nav__image">
                     <h1>React-Test</h1>
                 </div>
             </div>
