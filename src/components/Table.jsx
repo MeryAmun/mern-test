@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import {arrowUp, arrowDown} from '../assets/index'
 
 const Table = () => {
 const [users, setUsers] = useState([]);
@@ -48,23 +49,29 @@ response.json()
                             <div className="collection__content-order  font-medium font-weight-bold">
                                Gender
                                 <div className="collection__content-order-image">
-                                    <img src="../assets/arrow-up.png" alt=""  className='arrow-up' srcSet=""/>
-                                    <img src="../assets/arrow-down.png" alt="" className='arrow-down'  srcSet=""/>
+                                    <img src={arrowUp} alt=""  className='arrow-up' />
+                                    <img src={arrowDown} alt="" className='arrow-down' />
                                 </div>
                             </div>
                             <div className="collection__content-order  font-medium font-weight-bold">
                                Country
                                 <div className="collection__content-order-image">
-                                    <img src="../assets/arrow-up.png" alt=""  className='arrow-up' srcSet=""/>
-                                    <img src="../assets/arrow-down.png" alt="" className='arrow-down'  srcSet=""/>
+                                    <img src={arrowUp} alt=""  className='arrow-up' srcSet=""/>
+                                    <img src={arrowDown} alt="" className='arrow-down'  srcSet=""/>
                                 </div>
                             </div>
-                            <p  className="font-medium font-weight-bold">Device</p>
+                            <div className="collection__content-order font-medium font-weight-bold collection__content-order2">
+                              Divice
+                                <div className="collection__content-order-image">
+                                <img src={arrowUp} alt="" className='arrow-up-sales'  srcSet=""/>
+                            <img src={arrowDown} alt="" className='arrow-down-sales' srcSet=""/>
+                                </div>
+                            </div>
                             <div className="collection__content-order font-medium font-weight-bold collection__content-order2">
                                Usage Time in hours
                                 <div className="collection__content-order-image">
-                                <img src="../assets/arrow-up.png" alt="" className='arrow-up-sales'  srcSet=""/>
-                            <img src="../assets/arrow-down.png" alt="" className='arrow-down-sales' srcSet=""/>
+                                <img src={arrowUp} alt="" className='arrow-up-sales'  srcSet=""/>
+                            <img src={arrowDown} alt="" className='arrow-down-sales' srcSet=""/>
                                 </div>
                             </div>
                         </div>
