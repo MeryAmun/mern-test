@@ -18,6 +18,11 @@ const { username, gender, country, device } = req.body
         })
     res.status(402).json({newUser})
 }
+
+const getAllUsers = async (req, res) => {
+const allUsers = await User.find()
+res.status(200).json({ allUsers})
+}
 module.exports = {
-    createNewUser
+    createNewUser, getAllUsers
 }
