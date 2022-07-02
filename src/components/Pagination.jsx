@@ -1,5 +1,5 @@
 const paginate = (users) => {
-  const itemsPerPage = 10
+  const itemsPerPage = 15
   const numberOfPages = Math.ceil(users.length / itemsPerPage)
 
   const newUsers = Array.from({ length: numberOfPages }, (_, index) => {
